@@ -1,47 +1,53 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ProceduraleTerrain : MonoBehaviour
 {
-    //tout ce qui est commenté permet de faire apparaitre petit a petit
-    
-    Mesh mesh;
-    
-    Vector3[] vertices;
-    int[] triangles;
-
+    [SerializeField] private float _offsetX = 100f; 
+    [SerializeField] private float _offsetY = 100f;
+    [SerializeField] private float scale = 20f;
+   
     public int xSize = 20;
     public int zSize = 20;
+    public int Amplitude = 1;
+    
+    private Mesh _mesh;
+    private Vector3[] _vertices;
+    private int[] _triangles;
 
     void Start()
     {
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
-
-       // StartCoroutine(CreateShape());
+        _mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = _mesh;
+        
         CreateShape();
     }
 
     void Update()
     {
+        CreateShape();
         UpdateMesh();
     }
 
     void CreateShape()
     {
-        vertices = new Vector3[(xSize + 1) * (zSize + 1)];
-
-       
+        _vertices = new Vector3[(xSize + 1) * (zSize + 1)];
+        
         for (int i = 0, z = 0; z <= zSize; z++)
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float y = Mathf.PerlinNoise(x * 0.3f, z * 0.3f ) * 2f;
-                vertices[i] = new Vector3(x, y, z);
+                float xCoord = (float)x;
+                float yCoord = (float)z; 
+                
+                float y = Mathf.PerlinNoise(xCoord/ xSize * scale + _offsetX, yCoord / zSize * scale + _offsetY) * Amplitude;
+                
+                _vertices[i] = new Vector3(x, y, z);
                 i++;
             }
         }
         
-        triangles = new int[xSize * zSize * 6];
+        _triangles = new int[xSize * zSize * 6];
         
         int vert = 0;
         int tris = 0;
@@ -50,17 +56,15 @@ public class ProceduraleTerrain : MonoBehaviour
         {
             for (int x = 0; x < xSize; x++)
             {
-                triangles[tris + 0] = vert + 0;
-                triangles[tris + 1] = vert + xSize + 1;
-                triangles[tris + 2] = vert + 1;
-                triangles[tris + 3] = vert + 1;
-                triangles[tris + 4] = vert + xSize + 1;
-                triangles[tris + 5] = vert + xSize + 2;
+                _triangles[tris + 0] = vert + 0;
+                _triangles[tris + 1] = vert + xSize + 1;
+                _triangles[tris + 2] = vert + 1;
+                _triangles[tris + 3] = vert + 1;
+                _triangles[tris + 4] = vert + xSize + 1;
+                _triangles[tris + 5] = vert + xSize + 2;
             
                 vert++;
                 tris += 6;
-            
-               // yield return new WaitForSeconds(0.01f);
             }
             vert++;
         }
@@ -68,11 +72,11 @@ public class ProceduraleTerrain : MonoBehaviour
 
     void UpdateMesh()
     {
-        mesh.Clear();
+        _mesh.Clear();
         
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
+        _mesh.vertices = _vertices;
+        _mesh.triangles = _triangles;
         
-        mesh.RecalculateNormals();
+        _mesh.RecalculateNormals();
     }
 }
