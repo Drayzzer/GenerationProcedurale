@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PerlinNoise : MonoBehaviour
 {
-    [SerializeField] private int width = 256;
-    [SerializeField] private int height = 256;
+    private int width = 256; 
+    private int height = 256;
 
     [SerializeField] private float scale = 20f;
 
