@@ -3,6 +3,7 @@ using UnityEngine.Serialization;
 
 public class ProceduraleTerrain : MonoBehaviour
 {
+    [SerializeField] private GameObject _ocean;
     [SerializeField] private float _offsetX = 100f; 
     [SerializeField] private float _offsetY = 100f;
     [SerializeField] private float scale = 20f;
@@ -19,7 +20,7 @@ public class ProceduraleTerrain : MonoBehaviour
     {
         _mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = _mesh;
-        
+        Instantiate(_ocean, new Vector3(transform.position.x, 0.3f, transform.position.z), Quaternion.identity);
         CreateShape();
     }
 
@@ -37,10 +38,8 @@ public class ProceduraleTerrain : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float xCoord = (float)x;
-                float yCoord = (float)z; 
                 
-                float y = Mathf.PerlinNoise(xCoord/ xSize * scale + _offsetX, yCoord / zSize * scale + _offsetY) * Amplitude;
+                float y = Mathf.PerlinNoise(x * scale + _offsetX, z * scale + _offsetY) * Amplitude;
                 
                 _vertices[i] = new Vector3(x, y, z);
                 i++;
