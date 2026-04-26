@@ -292,7 +292,7 @@ MonoBehaviour:
   _ocean: {fileID: 1689400059845326127, guid: 19ca185c28a2a8e46bdcb65ec10c0a72, type: 3}
   _offsetX: 100
   _offsetY: 100
-  scale: 20
+  _scale: 0.001
   xSize: 20
   zSize: 200
   Amplitude: 1
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568063928}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be045f501260de04e82aeb4b8baf01f9, type: 3}
   m_Name: 
@@ -382,11 +382,12 @@ MonoBehaviour:
   _gameObject: {fileID: 1198242640650108946, guid: 8eba3c94dd66c724082e5130a2be38a7, type: 3}
   _offsetX: 100
   _offsetY: 100
-  _scale: 20
   _minSpawn: 0
-  _maxSpawn: 0
+  _maxSpawn: 0.4
+  _noiseScale: 0.0005
   xSize: 20
   zSize: 20
+  Amplitude: 1
 --- !u!114 &568063934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,11 +403,12 @@ MonoBehaviour:
   _gameObject: {fileID: 7607532360786197308, guid: 6eeffba0956b7974ea0b9b8be68257d2, type: 3}
   _offsetX: 100
   _offsetY: 100
-  _scale: 20
-  _minSpawn: 0
-  _maxSpawn: 0
-  xSize: 20
-  zSize: 20
+  _minSpawn: 0.4
+  _maxSpawn: 0.6
+  _noiseScale: 0.0005
+  xSize: 30
+  zSize: 30
+  Amplitude: 1
 --- !u!1 &994022736
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,8 +6,8 @@ public class ProceduraleTerrain : MonoBehaviour
     [SerializeField] private GameObject _ocean;
     [SerializeField] private float _offsetX = 100f; 
     [SerializeField] private float _offsetY = 100f;
-    [SerializeField] private float scale = 20f;
-   
+    [SerializeField] [Range(0.0005f, 0.001f)] private float _scale;
+    
     public int xSize = 20;
     public int zSize = 20;
     public int Amplitude = 1;
@@ -39,7 +39,7 @@ public class ProceduraleTerrain : MonoBehaviour
             for (int x = 0; x <= xSize; x++)
             {
                 
-                float y = Mathf.PerlinNoise(x * scale + _offsetX, z * scale + _offsetY) * Amplitude;
+                float y = Mathf.PerlinNoise(x * _scale + _offsetX, z * _scale + _offsetY) * Amplitude;
                 
                 _vertices[i] = new Vector3(x, y, z);
                 i++;
