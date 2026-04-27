@@ -9,7 +9,7 @@ public class PropsSpawnner : MonoBehaviour
     [SerializeField] private float _offsetY = 100f;
     [SerializeField] private float _minSpawn;
     [SerializeField] private float _maxSpawn;
-    [SerializeField][Range(0.0005f, 0.001f)] private float _noiseScale;
+    [SerializeField][Range(0f, 1f)] private float _noiseScale;
     
     public int xSize = 20;
     public int zSize = 20;
@@ -39,10 +39,16 @@ public class PropsSpawnner : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                float y  = Mathf.PerlinNoise(x / _noiseScale + _offsetX, z / _noiseScale + _offsetY) * Amplitude;
+                float y  = Mathf.PerlinNoise(x * _noiseScale + _offsetX, z * _noiseScale + _offsetY) * Amplitude;
                 
                 //si c'est supérieur ou égale a x alors des props peuvent spawnner
-                if (y >= _minSpawn && y <= _maxSpawn)
+                //if (y >= _minSpawn && y <= _maxSpawn)
+                //{
+                //    // instancie le gameobject
+                //    GameObject go = Instantiate(_gameObject, new Vector3(x, y, z), Quaternion.identity);
+                //    _Props.Add(go);
+                //}
+                if (y >= _minSpawn )
                 {
                     // instancie le gameobject
                     GameObject go = Instantiate(_gameObject, new Vector3(x, y, z), Quaternion.identity);

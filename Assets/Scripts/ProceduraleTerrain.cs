@@ -6,7 +6,7 @@ public class ProceduraleTerrain : MonoBehaviour
     [SerializeField] private GameObject _ocean;
     [SerializeField] private float _offsetX = 100f; 
     [SerializeField] private float _offsetY = 100f;
-    [SerializeField] [Range(0.0005f, 0.001f)] private float _scale;
+    [SerializeField] [Range(0f, 1f)] private float _scale;
     
     public int xSize = 20;
     public int zSize = 20;
@@ -51,7 +51,7 @@ public class ProceduraleTerrain : MonoBehaviour
         int vert = 0;
         int tris = 0;
 
-        for (int z = 0; z < xSize; z++)
+        for (int z = 0; z < zSize; z++)
         {
             for (int x = 0; x < xSize; x++)
             {
